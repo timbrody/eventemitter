@@ -1,0 +1,6 @@
+Changes
+Makefile.PL
+MANIFEST
+README
+t/EventEmitter.t
+lib/EventEmitter.pm
