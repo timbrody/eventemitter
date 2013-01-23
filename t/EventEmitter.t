@@ -6,7 +6,7 @@
 # change 'tests => 1' to 'tests => last_test_to_print';
 
 use Test::More;
-BEGIN { plan tests => 10 };
+BEGIN { plan tests => 9 };
 use EventEmitter;
 ok(1); # If we made it this far, we're ok.
 
@@ -33,13 +33,6 @@ is(($emitter->listeners('test2'))[0], $cb);
 $emitter->removeListener('test2', $cb);
 $emitter->emit('test2', 'bar');
 is($var, 'foo');
-}
-
-{
-my $emitter = new EventEmitter();
-
-eval { $emitter->on('test', 'bar') };
-ok($@ =~ /CODE/);
 }
 
 is(scalar(keys(%EventEmitter::ALWAYS)), 0, 'Always cleaned up');
