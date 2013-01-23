@@ -14,6 +14,10 @@ To install this module type the following:
    make test
    make install
 
+To create a Debian package:
+
+   dh-make-perl --vcs ~ --build
+
 DEPENDENCIES
 
 This module requires these other modules and libraries:
