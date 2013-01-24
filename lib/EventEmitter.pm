@@ -34,6 +34,29 @@ Register callbacks and emit events that trigger those callbacks.
 
 Events are identified by anything that can be stringified.
 
+=head2 Avoiding Memory Leaks
+
+Care must be taken when using closures to avoid memory leaks. The easiest to way to avoid this is to pass $self (if needed) as a parameter to the event rather than using a closure:
+
+	# BAD: closure refers to $obj, which is itself referenced by $obj, causing
+	# a potential memory leak
+	$obj->on('bang', sub {
+		if ($obj->{firework}) {
+			print "Pretty!\n";
+		}
+	});
+	$obj->emit('bang');
+	
+	# GOOD: pass $self as a parameter, which avoids referencing $obj within the
+	# closure
+	$obj->on('bang', sub {
+		my ($self) = @_;
+		if ($self->{firework}) {
+			print "Pretty!\n";
+		}
+	});
+	$obj->emit('bang', $obj);
+
 =head1 METHODS
 
 =over 4
